@@ -54,7 +54,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
           _buildFilterItem('Semua'),
           _buildFilterItem('Belum diproses'),
           _buildFilterItem('Sedang diproses'),
-          _buildFilterItem('Sedang dikirim'),
+          _buildFilterItem('Menunggu di pick up'),
           _buildFilterItem('Selesai'),
         ],
       ),

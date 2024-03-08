@@ -31,7 +31,7 @@ class LoginDatasource {
 
       // Check Status Code
       if (httpResponse.statusCode == 200) {
-        // print(jsonDecode);
+        print(jsonResponse);
         return Right(LoginResponseModel.fromJson(jsonResponse));
       } else {
         final errorMessage = jsonResponse['error'];

@@ -18,10 +18,12 @@ class UpdateUserDetailsDatasource {
     };
 
     final uri = '${Variables.baseURL}/${UrlApi.updateUserDetails}/$userId';
+    // final uri = '${Variables.baseURL}/user/update-user-details/$userId';
     final request = http.MultipartRequest(
       'POST',
       Uri.parse(uri),
     );
+    print(uri);
 
     request.headers.addAll(headers);
     request.fields.addAll(requestModel.toFormData());

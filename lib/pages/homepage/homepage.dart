@@ -1,10 +1,11 @@
 import 'package:beaja_toko/bloc/profile/get_user_details/get_user_details_bloc.dart';
 import 'package:beaja_toko/common/components/divider.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:beaja_toko/common/constants/navigation/navigation_bottom_bar.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
 import 'package:beaja_toko/common/functions/check_token/check_token.dart';
+import 'package:beaja_toko/common/functions/get_permission_location/get_permission_location.dart';
 import 'package:beaja_toko/common/functions/logout/logout_loaded_response.dart';
 import 'package:beaja_toko/pages/homepage/widgets/navbar_actions.dart';
 import 'package:beaja_toko/pages/homepage/widgets/navbar_title.dart';
@@ -44,25 +45,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void checkGpsPermission() async {
-    servicestatus = await Geolocator.isLocationServiceEnabled();
-    if (servicestatus) {
-      permission = await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          showToast(message: 'Location permissions are denied');
-        } else if (permission == LocationPermission.deniedForever) {
-          showToast(message: "Location permissions are permanently denied");
-        } else {
-          haspermission = true;
-        }
-      } else {
-        haspermission = true;
-      }
-    } else {
-      showToast(message: 'GPS Service is not enabled, turn on GPS location');
-    }
+    getPermissionLocation(context);
   }
 
   void checkToken() {
@@ -80,12 +63,15 @@ class _HomePageState extends State<HomePage> {
           showToast(message: 'Token Expired');
           logoutLoadedFunction(context);
         } else {
-          print(userId);
-          print(userToken);
-          print('userToken: $userToken');
+          loadDataSource();
         }
       },
     );
+  }
+
+  void loadDataSource() {
+    BlocProvider.of<GetUserDetailsBloc>(context)
+        .add(const GetUserDetailsEvent.getUserDetails());
   }
 
   @override

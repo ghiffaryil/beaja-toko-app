@@ -1,4 +1,4 @@
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 
 bool validateEmailForm(String email) {
   email = email.trim();

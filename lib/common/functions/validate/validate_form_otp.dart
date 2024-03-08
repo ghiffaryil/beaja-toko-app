@@ -1,5 +1,5 @@
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
 
 bool validateOtpForm(List<TextEditingController> controllers) {
   if (controllers.any((controller) => controller.text.isEmpty)) {

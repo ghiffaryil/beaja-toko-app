@@ -7,7 +7,7 @@ import 'package:beaja_toko/bloc/product/create_item/create_item_bloc.dart';
 import 'package:beaja_toko/common/components/divider.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/components/elevated_button.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:beaja_toko/common/components/input_field_text_underline_border.dart';
 import 'package:beaja_toko/common/constants/styles/images.dart';
 import 'package:beaja_toko/models/product/create_item/create_item_request_model.dart';
@@ -51,20 +51,32 @@ class _FormInputCreateProductState extends State<FormInputCreateProduct> {
       children: [
         CustomDividers.verySmallDivider(),
         productImage != null
-            ? Image.file(File(productImage!.path), fit: BoxFit.contain)
-            : Image.asset(Images.userEmpty, fit: BoxFit.contain),
+            ? Image.file(
+                File(productImage!.path),
+                fit: BoxFit.contain,
+                width: 300,
+              )
+            : Image.asset(
+                Images.userEmpty,
+                fit: BoxFit.contain,
+                height: 300,
+              ),
         CustomDividers.smallDivider(),
-        ButtonFilled.primary(
-            iconData: Icons.file_upload_outlined,
-            backgroundColor: productImageSelected == ''
-                ? AppColors.primary
-                : AppColors.secondary,
-            textColor:
-                productImageSelected == '' ? AppColors.white : AppColors.white,
-            text: 'Upload',
-            onPressed: () {
-              _selectImageFromGallery();
-            }),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 50.0),
+          child: ButtonFilled.primary(
+              iconData: Icons.file_upload_outlined,
+              backgroundColor: productImageSelected == ''
+                  ? AppColors.primary
+                  : AppColors.secondary,
+              textColor: productImageSelected == ''
+                  ? AppColors.white
+                  : AppColors.white,
+              text: 'Upload',
+              onPressed: () {
+                _selectImageFromGallery();
+              }),
+        ),
         CustomDividers.smallDivider(),
         TextInputFieldUnderline(
           focusNode: inputNamaItemFocus,
@@ -113,6 +125,24 @@ class _FormInputCreateProductState extends State<FormInputCreateProduct> {
           error: (message) {
             showToast(message: message);
           },
+          loading: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const AlertDialog(
+                    surfaceTintColor: AppColors.white,
+                    content: SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ));
+              },
+              barrierDismissible: false,
+            );
+          },
           loaded: (data) {
             showToast(message: 'Item Created');
             Navigator.pushReplacement(context,
@@ -126,7 +156,7 @@ class _FormInputCreateProductState extends State<FormInputCreateProduct> {
         builder: (context, state) {
           return state.maybeWhen(orElse: () {
             return ButtonFilled.primary(
-                text: 'CREATE',
+                text: 'Simpan',
                 onPressed: () {
                   final requestModel = CreateItemRequestModel(
                     userId: widget.userId.toString(),

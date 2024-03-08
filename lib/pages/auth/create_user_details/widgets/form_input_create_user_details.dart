@@ -7,7 +7,7 @@ import 'package:beaja_toko/common/components/divider.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/images.dart';
 import 'package:beaja_toko/common/components/elevated_button.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:beaja_toko/common/components/input_field_text_underline_border.dart';
 import 'package:beaja_toko/datasource/profile/get_user_details/get_user_detail_datasource.dart';
 import 'package:beaja_toko/models/profile/create_user_details/create_user_details_request_model.dart';
@@ -84,33 +84,9 @@ class _FormInputCreateUserDetailsState
   void initState() {
     super.initState();
     loadGetUserDetails();
-    checkGpsPermission();
-  }
-
-  void checkGpsPermission() async {
-    servicestatus = await Geolocator.isLocationServiceEnabled();
-    if (servicestatus) {
-      permission = await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          print('Location permissions are denied');
-        } else if (permission == LocationPermission.deniedForever) {
-          print("'Location permissions are permanently denied");
-        } else {
-          haspermission = true;
-        }
-      } else {
-        haspermission = true;
-      }
-
-      if (haspermission) {
-        getLocation();
-      }
-    } else {
-      print("GPS Service is not enabled, turn on GPS location");
-    }
+    inputLatitude.text = '';
+    inputLongitude.text = '';
+    getLocation();
   }
 
   getLocation() async {
@@ -404,7 +380,7 @@ class _FormInputCreateUserDetailsState
         CustomDividers.verySmallDivider(),
         TextInputFieldUnderline(
           focusNode: inputNamaTokoFocus,
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.text,
           controller: inputNamaToko,
           hintText: 'Nama Toko*',
           labelText: 'Nama Toko*',
@@ -444,8 +420,8 @@ class _FormInputCreateUserDetailsState
       child: BlocBuilder<CreateUserDetailsBloc, CreateUserDetailsState>(
         builder: (context, state) {
           return state.maybeWhen(orElse: () {
-            return ButtonFilled.primary(
-                text: 'CREATE',
+            return ButtonFilled.secondary(
+                text: 'Create',
                 onPressed: () {
                   final requestModel = CreateUserDetailsRequestModel(
                     userId: userId.toString(),
@@ -497,7 +473,7 @@ class _FormInputCreateUserDetailsState
                 });
           }, loading: () {
             return ButtonFilled.primary(
-              backgroundColor: AppColors.primary,
+              backgroundColor: AppColors.secondary,
               text: '',
               onPressed: () {},
               loading: true,

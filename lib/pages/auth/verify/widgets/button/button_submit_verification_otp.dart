@@ -1,9 +1,9 @@
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:beaja_toko/bloc/auth/login/auth_login_bloc.dart';
 import 'package:beaja_toko/bloc/auth/verify_otp/verify_otp_bloc.dart';
 import 'package:beaja_toko/common/components/elevated_button.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/styles.dart';
 import 'package:beaja_toko/models/auth/login/login_request_model.dart';
@@ -110,14 +110,14 @@ class _ButtonSubmitVerificationOtpState
                   alignment: Alignment.center,
                   child: Text(
                     'Selamat!',
-                    style: TextStyles.h3(color: AppColors.bg),
+                    style: TextStyles.h3(color: AppColors.primary),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 content: Text(
                   'Email anda telah berhasil diverifikasi',
                   textAlign: TextAlign.center,
-                  style: TextStyles.h5(color: AppColors.bg),
+                  style: TextStyles.h5(color: AppColors.primary),
                 ),
                 actions: [
                   ButtonFilled.primary(

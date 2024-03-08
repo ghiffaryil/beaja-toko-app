@@ -52,6 +52,7 @@ class CreateUserDetailsRequestModel {
       'nama_depan': namaDepan,
       'nama_tengah': namaTengah,
       'nama_belakang': namaBelakang,
+      'no_hp': phone,
       'phone': phone,
       'alamat_lengkap': alamatLengkap,
       'provinsi': provinsi,

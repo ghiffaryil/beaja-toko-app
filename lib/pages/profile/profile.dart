@@ -7,6 +7,7 @@ import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
 import 'package:beaja_toko/common/constants/styles/styles.dart';
 import 'package:beaja_toko/datasource/profile/get_user_details/get_user_detail_datasource.dart';
+import 'package:beaja_toko/pages/auth/create_user_details/create_user_details.dart';
 import 'package:beaja_toko/pages/profile/edit_user_details.dart';
 import 'package:beaja_toko/pages/profile/widgets/list/list_menu_text.dart';
 import 'package:beaja_toko/pages/profile/widgets/list/list_menu_card.dart';
@@ -90,8 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) =>
-                                    const EditUserDetails())));
+                                builder: ((context) => isHaveUserDetails
+                                    ? const EditUserDetails()
+                                    : const CreateUserDetails())));
                       }),
                 ],
               ),

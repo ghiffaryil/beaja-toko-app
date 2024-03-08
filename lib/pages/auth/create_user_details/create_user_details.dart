@@ -1,7 +1,7 @@
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
 import 'package:beaja_toko/common/constants/styles/styles.dart';
+import 'package:beaja_toko/common/functions/get_permission_location/get_permission_location.dart';
 import 'package:beaja_toko/pages/auth/create_user_details/widgets/form_input_create_user_details.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,26 +24,8 @@ class _CreateUserDetailsState extends State<CreateUserDetails> {
     checkGpsPermission();
   }
 
-  void checkGpsPermission() async {
-    servicestatus = await Geolocator.isLocationServiceEnabled();
-    if (servicestatus) {
-      permission = await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          showToast(message: 'Location permissions are denied');
-        } else if (permission == LocationPermission.deniedForever) {
-          showToast(message: "Location permissions are permanently denied");
-        } else {
-          haspermission = true;
-        }
-      } else {
-        haspermission = true;
-      }
-    } else {
-      showToast(message: 'GPS Service is not enabled, turn on GPS location');
-    }
+  void checkGpsPermission() {
+    getPermissionLocation(context);
   }
 
   @override

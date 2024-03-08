@@ -3,7 +3,7 @@ import 'package:beaja_toko/bloc/profile/get_user_details/get_user_details_bloc.d
 import 'package:beaja_toko/bloc/profile/update_image_user_details/update_image_user_details_bloc.dart';
 import 'package:beaja_toko/common/components/divider.dart';
 import 'package:beaja_toko/common/components/elevated_button.dart';
-import 'package:beaja_toko/common/constants/function/show_toast.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/images.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
