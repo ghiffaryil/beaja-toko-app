@@ -3,7 +3,6 @@ import 'package:beaja_toko/common/constants/datasource/url_api.dart';
 import 'package:beaja_toko/common/constants/datasource/variables.dart';
 import 'package:beaja_toko/models/product/get_item/get_item_request_model.dart';
 import 'package:beaja_toko/models/product/get_item/get_item_response_model.dart';
-import 'package:beaja_toko/repository/auth/auth_local_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
 
@@ -11,12 +10,14 @@ class GetItemDatasource {
   Future<Either<String, GetItemResponseModel>> getItem(
       GetItemRequestModel requestModel) async {
     // Get value from Repository
-    final token = await AuthLocalRepository().getToken();
+    // final token = await AuthLocalRepository().getToken();
 
     final headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': token,
+      // 'Authorization': token,
+      'X-Auth-Token':
+          'Basic MG5NRnJUYkxkNTNHNXJGNFd5QWlNWU02bTpHamNCMDR2MGdMNk1kczFaYUVhZzVyN0U3',
     };
 
     final request = http.Request(

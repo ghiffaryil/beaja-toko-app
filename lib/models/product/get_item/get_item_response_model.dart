@@ -2,10 +2,18 @@ import 'dart:convert';
 
 class GetItemResponseModel {
   String message;
+  String nama;
+  int userId;
+  String long;
+  String lat;
   List<ListItem> data;
 
   GetItemResponseModel({
     required this.message,
+    required this.nama,
+    required this.userId,
+    required this.long,
+    required this.lat,
     required this.data,
   });
 
@@ -17,11 +25,19 @@ class GetItemResponseModel {
   factory GetItemResponseModel.fromMap(Map<String, dynamic> json) =>
       GetItemResponseModel(
         message: json["message"],
+        nama: json["nama"],
+        userId: json["user_id"],
+        long: json["long"],
+        lat: json["lat"],
         data: List<ListItem>.from(json["data"].map((x) => ListItem.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
         "message": message,
+        "nama": nama,
+        "user_id": userId,
+        "long": long,
+        "lat": lat,
         "data": List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }

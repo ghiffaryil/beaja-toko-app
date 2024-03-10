@@ -35,7 +35,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(Images.onboardingBackground),
+              image: AssetImage('assets/images/onboarding/bgb6.jpeg'),
               fit: BoxFit.cover,
             ),
           ),

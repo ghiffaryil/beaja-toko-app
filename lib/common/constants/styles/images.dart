@@ -4,4 +4,5 @@ class Images {
   static const String onboardingBackground =
       'assets/images/onboarding/bgtoko.png';
   static const String userEmpty = 'assets/images/global/user_empty.jpg';
+  static const String imageEmpty = 'assets/images/global/uploadanimage.jpg';
 }

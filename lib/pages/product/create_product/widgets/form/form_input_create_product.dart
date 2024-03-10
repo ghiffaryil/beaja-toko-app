@@ -49,35 +49,27 @@ class _FormInputCreateProductState extends State<FormInputCreateProduct> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomDividers.verySmallDivider(),
-        productImage != null
-            ? Image.file(
-                File(productImage!.path),
-                fit: BoxFit.contain,
-                width: 300,
-              )
-            : Image.asset(
-                Images.userEmpty,
-                fit: BoxFit.contain,
-                height: 300,
-              ),
-        CustomDividers.smallDivider(),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50.0),
-          child: ButtonFilled.primary(
-              iconData: Icons.file_upload_outlined,
-              backgroundColor: productImageSelected == ''
-                  ? AppColors.primary
-                  : AppColors.secondary,
-              textColor: productImageSelected == ''
-                  ? AppColors.white
-                  : AppColors.white,
-              text: 'Upload',
-              onPressed: () {
-                _selectImageFromGallery();
-              }),
+        GestureDetector(
+          onTap: () {
+            _selectImageFromGallery();
+          },
+          child: Container(
+            child: productImage != null
+                ? Image.file(
+                    File(productImage!.path),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 300,
+                  )
+                : Image.asset(
+                    Images.imageEmpty,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 300,
+                  ),
+          ),
         ),
-        CustomDividers.smallDivider(),
+        CustomDividers.verySmallDivider(),
         TextInputFieldUnderline(
           focusNode: inputNamaItemFocus,
           keyboardType: TextInputType.text,
