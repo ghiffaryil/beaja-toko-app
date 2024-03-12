@@ -46,9 +46,9 @@ class _UserInformationCardState extends State<UserInformationCard> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(20.0),
       ),
-      padding: CustomPadding.p2,
+      padding: CustomPadding.p1,
       child: BlocBuilder<GetUserDetailsBloc, GetUserDetailsState>(
         builder: (context, state) {
           return state.maybeWhen(
@@ -64,113 +64,115 @@ class _UserInformationCardState extends State<UserInformationCard> {
               );
             },
             loaded: (data) {
-              return Row(
+              return Column(
                 children: [
-                  Expanded(
-                    flex: 4,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: data.userDetail.isNotEmpty
-                                  ? Image.network(
-                                      data.userDetail.first.image,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.asset(
-                                      Images.userEmpty,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
+                  Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: data.userDetail.isNotEmpty
+                                ? Image.network(
+                                    data.userDetail.first.image,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    Images.userEmpty,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 10,
-                          right: 5,
-                          child: GestureDetector(
-                            onTap: () {
-                              _selectImageFromGallery();
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                padding: const EdgeInsets.all(5),
-                                color: Colors.black.withOpacity(0.5),
-                                child: const Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 5,
+                        child: GestureDetector(
+                          onTap: () {
+                            _selectImageFromGallery();
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              color: Colors.black.withOpacity(0.5),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 15,
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    width: 10,
+                    height: 10,
                   ),
-                  Expanded(
-                    flex: 6,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.bgLight))),
-                              child: Text(
-                                data.userDetail.isNotEmpty
-                                    ? '${data.userDetail.first.namaDepan} ${data.userDetail.first.namaTengah} ${data.userDetail.first.namaBelakang}'
-                                    : '-',
-                                style:
-                                    TextStyles.h4(color: AppColors.secondary),
-                              )),
-                          CustomDividers.verySmallDivider(),
-                          Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.bgLight))),
-                              child: Text(data.email)),
-                          CustomDividers.verySmallDivider(),
-                          Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.bgLight))),
-                              child: Text(data.userDetail.isNotEmpty
-                                  ? data.userDetail.first.phone
-                                  : '')),
-                          CustomDividers.verySmallDivider(),
-                          Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.bgLight))),
-                              child: Text(data.userDetail.isNotEmpty
-                                  ? data.userDetail.first.alamatLengkap
-                                  : '')),
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: AppColors.bgLight))),
+                            child: Text(
+                              data.userDetail.isNotEmpty
+                                  ? data.userDetail.first.namaToko
+                                  : '-',
+                              style: TextStyles.h4(color: AppColors.secondary),
+                            )),
+                        CustomDividers.verySmallDivider(),
+                        Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: AppColors.bgLight))),
+                            child: Text(
+                              data.userDetail.isNotEmpty
+                                  ? '${data.userDetail.first.namaDepan} ${data.userDetail.first.namaTengah} ${data.userDetail.first.namaBelakang}'
+                                  : '-',
+                              style: TextStyles.h4(color: AppColors.primary),
+                            )),
+                        CustomDividers.verySmallDivider(),
+                        Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: AppColors.bgLight))),
+                            child: Text(data.email)),
+                        CustomDividers.verySmallDivider(),
+                        Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: AppColors.bgLight))),
+                            child: Text(data.userDetail.isNotEmpty
+                                ? data.userDetail.first.phone
+                                : '')),
+                        CustomDividers.verySmallDivider(),
+                        Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: AppColors.bgLight))),
+                            child: Text(data.userDetail.isNotEmpty
+                                ? data.userDetail.first.alamatLengkap
+                                : '')),
+                      ],
                     ),
                   ),
                 ],
@@ -229,7 +231,7 @@ class _UserInformationCardState extends State<UserInformationCard> {
                 surfaceTintColor: AppColors.white,
                 title: Text(
                   'Perhatian! Gambar akan diubah?',
-                  style: TextStyles.h4(color: AppColors.bg),
+                  style: TextStyles.h4(color: AppColors.primary),
                 ),
                 actions: [
                   Row(

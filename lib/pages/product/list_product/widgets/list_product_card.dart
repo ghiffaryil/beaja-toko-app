@@ -20,8 +20,15 @@ class _ListProductCardState extends State<ListProductCard> {
   @override
   Widget build(BuildContext context) {
     final product = widget.dataProduct;
+    String displayedName = product.namaItem.length > 12
+        ? "${product.namaItem.substring(0, 12)} ..."
+        : product.namaItem;
+    String jenisItem = product.jenisItem;
+    String volumeItem =
+        product.jenisItem == "minuman" ? '- ${product.volume}' : '';
+
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(10),
@@ -48,42 +55,35 @@ class _ListProductCardState extends State<ListProductCard> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(7.0),
+            padding: const EdgeInsets.all(5.0),
             margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.010,
+              top: MediaQuery.of(context).size.height * 0.01,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomDividers.verySmallDivider(),
                 Text(
-                  product.namaItem,
+                  displayedName,
                   style: TextStyles.large(
                       color: AppColors.primary, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   product.sku,
-                  style: TextStyles.small(
-                    color: AppColors.primary,
-                  ),
+                  style: TextStyles.small(color: AppColors.muted),
                 ),
                 Text(
-                  product.jenisItem,
-                  style: TextStyles.small(
-                    color: AppColors.primary,
-                  ),
+                  '$jenisItem $volumeItem ',
+                  style: TextStyles.small(color: AppColors.muted),
                 ),
                 Text(
-                  formatCurrency(product.harga.toDouble()),
-                  style: TextStyles.regular(
+                  '${formatCurrency(product.harga.toDouble())},-',
+                  style: TextStyles.medium(
                     color: AppColors.primary,
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.007,
           ),
         ],
       ),

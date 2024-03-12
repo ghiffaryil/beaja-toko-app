@@ -5,6 +5,7 @@ import 'package:beaja_toko/common/functions/check_token/check_token.dart';
 import 'package:beaja_toko/pages/homepage/homepage.dart';
 import 'package:beaja_toko/pages/onboarding/onboarding.dart';
 import 'package:beaja_toko/repository/auth/auth_local_repository.dart';
+import 'package:beaja_toko/repository/maps/cart_check_maps.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -36,7 +37,8 @@ class SplashScreenPageState extends State<SplashScreenPage> {
           userToken = getUserToken;
           userId = getUserId;
         });
-        print(userToken);
+        // print(userToken);
+        CheckMapsRepository().removeCheckMaps();
         openSplashScreen();
       },
     );

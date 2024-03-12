@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:beaja_toko/bloc/profile/update_user_details/update_user_details_bloc.dart';
 import 'package:beaja_toko/common/components/divider.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
@@ -7,11 +6,12 @@ import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
 import 'package:beaja_toko/common/components/input_field_text_underline_border.dart';
 import 'package:beaja_toko/datasource/profile/get_user_details/get_user_detail_datasource.dart';
 import 'package:beaja_toko/models/profile/update_user_details/update_user_details_request_model.dart';
+import 'package:beaja_toko/pages/maps/map_screen.dart';
 import 'package:beaja_toko/pages/profile/profile.dart';
+import 'package:beaja_toko/repository/user/alamat_user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:ionicons/ionicons.dart';
 
 class FormInputUpdateUserDetails extends StatefulWidget {
   const FormInputUpdateUserDetails({super.key});
@@ -27,6 +27,7 @@ class _FormInputUpdateUserDetailsState
   TextEditingController inputNamaDepan = TextEditingController();
   TextEditingController inputNamaTengah = TextEditingController();
   TextEditingController inputNamaBelakang = TextEditingController();
+  TextEditingController inputPhone = TextEditingController();
   TextEditingController inputNomorHandphone = TextEditingController();
   TextEditingController inputAlamatLengkap = TextEditingController();
   TextEditingController inputProvinsi = TextEditingController();
@@ -45,6 +46,7 @@ class _FormInputUpdateUserDetailsState
   FocusNode inputNamaDepanFocus = FocusNode();
   FocusNode inputNamaTengahFocus = FocusNode();
   FocusNode inputNamaBelakangFocus = FocusNode();
+  FocusNode inputPhoneFocus = FocusNode();
   FocusNode inputNomorHandphoneFocus = FocusNode();
   FocusNode inputAlamatLengkapFocus = FocusNode();
   FocusNode inputProvinsiFocus = FocusNode();
@@ -65,8 +67,6 @@ class _FormInputUpdateUserDetailsState
   bool haspermission = false;
   late LocationPermission permission;
   late Position position;
-  String long = "", lat = "";
-  late StreamSubscription<Position> positionStream;
 
   int userId = 0;
   bool isHaveUserDetails = false;
@@ -75,23 +75,70 @@ class _FormInputUpdateUserDetailsState
   void initState() {
     super.initState();
     loadGetUserDetails();
+    checkGpsPermission();
+  }
+
+  void checkGpsPermission() async {
+    servicestatus = await Geolocator.isLocationServiceEnabled();
+    if (servicestatus) {
+      permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        } else if (permission == LocationPermission.deniedForever) {
+          print("Location permissions are permanently denied");
+        } else {
+          haspermission = true;
+        }
+      } else {
+        haspermission = true;
+      }
+
+      if (haspermission) {
+        getLocation();
+      }
+    } else {
+      print("GPS Service is not enabled, turn on GPS location");
+    }
   }
 
   getLocation() async {
     position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
-    // print(position.longitude); //Output: 80.24599079
-    // print(position.latitude); //Output: 29.6593457
-
-    long = position.longitude.toString();
-    lat = position.latitude.toString();
-
     setState(() {
-      //refresh UI
-      inputLatitude.text = lat;
-      inputLongitude.text = long;
+      inputLatitude.text = position.longitude.toString();
+      inputLongitude.text = position.latitude.toString();
     });
+  }
+
+  void getAlamatUserRepository() async {
+    final getAlamatUser = await AlamatUserReporitory().getAlamatUser();
+    print('getAlamatUser');
+    print(getAlamatUser);
+    if (getAlamatUser.isNotEmpty) {
+      print('Lat Long dari Repository');
+      setState(() {
+        inputLatitude.text = getAlamatUser['lat_user'];
+        inputLongitude.text = getAlamatUser['long_user'];
+      });
+    }
+  }
+
+  void updateAlamatUser() async {
+    final getAlamatUser = await AlamatUserReporitory().getAlamatUser();
+    if (getAlamatUser.isNotEmpty) {
+      setState(() {
+        inputAlamatLengkap.text = getAlamatUser['alamat_user'];
+        inputDesa.text = getAlamatUser['kelurahan_user'];
+        inputKecamatan.text = getAlamatUser['kecamatan_user'];
+        inputProvinsi.text = getAlamatUser['provinsi_user'];
+        inputLatitude.text = getAlamatUser['lat_user'];
+        inputLongitude.text = getAlamatUser['long_user'];
+      });
+    }
   }
 
   void loadGetUserDetails() async {
@@ -182,6 +229,14 @@ class _FormInputUpdateUserDetailsState
           hintText: 'Email',
           labelText: 'Email',
           editable: false,
+        ),
+        CustomDividers.verySmallDivider(),
+        TextInputFieldUnderline(
+          focusNode: inputPhoneFocus,
+          keyboardType: TextInputType.phone,
+          controller: inputPhone,
+          hintText: 'Nomor Telepon*',
+          labelText: 'Nomor Telepon*',
         ),
         CustomDividers.verySmallDivider(),
         TextInputFieldUnderline(
@@ -305,13 +360,23 @@ class _FormInputUpdateUserDetailsState
             Expanded(
                 flex: 1,
                 child: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       inputLatitude.text = '';
                       inputLongitude.text = '';
-                      getLocation();
+                      // getLocation();
+
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const MapScreen();
+                          },
+                        ),
+                      );
+
+                      updateAlamatUser();
                     },
                     icon: const Icon(
-                      Ionicons.location_sharp,
+                      Icons.map_rounded,
                       color: AppColors.primary,
                       size: 40,
                     )))
@@ -371,6 +436,7 @@ class _FormInputUpdateUserDetailsState
                     nik: inputNik.text,
                     nib: inputNib.text,
                     namaToko: inputNamaToko.text,
+                    noHp: inputNomorHandphone.text,
                   );
 
                   if (requestModel.namaDepan.isEmpty ||

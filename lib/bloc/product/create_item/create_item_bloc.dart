@@ -14,8 +14,8 @@ class CreateItemBloc extends Bloc<CreateItemEvent, CreateItemState> {
       final response =
           await CreateItemDatasource().createItem(event.requestModel);
       response.fold(
-        (error) => emit(_Error(error)),
-        (data) => emit(_Loaded(data)),
+        (error) => emit(CreateItemState.error(error)),
+        (data) => emit(CreateItemState.loaded(data)),
       );
     });
   }

@@ -16,22 +16,25 @@ class UpdateUserDetailsDatasource {
       'Content-Type': 'multipart/form-data',
       'Authorization': token,
     };
+    final body = requestModel.toJson();
 
     final uri = '${Variables.baseURL}/${UrlApi.updateUserDetails}/$userId';
-    // final uri = '${Variables.baseURL}/user/update-user-details/$userId';
-    final request = http.MultipartRequest(
+    final request = http.Request(
       'POST',
       Uri.parse(uri),
     );
     print(uri);
 
     request.headers.addAll(headers);
-    request.fields.addAll(requestModel.toFormData());
+    request.body = body;
 
     try {
-      final httpResponse = await request.send();
+      final httpResponse = await http.Client().send(request);
       final response = await http.Response.fromStream(httpResponse);
       final Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+      print(jsonResponse);
+
       if (response.statusCode == 200) {
         final String responseMessage = jsonResponse['message'];
         return Right(responseMessage);

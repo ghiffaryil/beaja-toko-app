@@ -6,6 +6,9 @@ import 'package:beaja_toko/common/constants/navigation/navigation_bottom_bar.dar
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
 import 'package:beaja_toko/common/constants/styles/styles.dart';
+import 'package:beaja_toko/common/constants/widgets/show_toast.dart';
+import 'package:beaja_toko/common/functions/check_token/check_token.dart';
+import 'package:beaja_toko/common/functions/logout/logout_loaded_response.dart';
 import 'package:beaja_toko/datasource/profile/get_user_details/get_user_detail_datasource.dart';
 import 'package:beaja_toko/pages/auth/create_user_details/create_user_details.dart';
 import 'package:beaja_toko/pages/profile/edit_user_details.dart';
@@ -27,11 +30,36 @@ class _ProfilePageState extends State<ProfilePage> {
   int selectedIndex = 3;
   int userId = 0;
 
+  bool isLogged = false;
+  bool isExpiredToken = false;
+  String userToken = '';
+
   @override
   void initState() {
     super.initState();
     selectedIndex = 3;
-    loadGetUserDetails();
+    checkToken();
+  }
+
+  void checkToken() {
+    TokenChecker.checkToken(
+      setStateCallback: (bool getIsLogged, String getUserToken,
+          String getUserEmail, bool getIsExpiredToken, int getUserId) {
+        setState(() {
+          isLogged = getIsLogged;
+          isExpiredToken = getIsExpiredToken;
+          userToken = getUserToken;
+          userId = getUserId;
+        });
+
+        if (isExpiredToken) {
+          showToast(message: 'Token Expired');
+          logoutLoadedFunction(context);
+        } else {
+          loadGetUserDetails();
+        }
+      },
+    );
   }
 
   void loadGetUserDetails() async {
