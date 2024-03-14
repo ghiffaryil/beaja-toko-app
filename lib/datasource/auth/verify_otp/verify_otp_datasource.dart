@@ -10,7 +10,6 @@ class VerifyOtpDatasource {
   Future<Either<String, String>> verifyOtp(
       VerifyOtpRequestModel requestModel) async {
     final headers = {
-      'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     final body = requestModel.toJson();

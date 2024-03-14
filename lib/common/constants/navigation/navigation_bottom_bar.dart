@@ -1,6 +1,6 @@
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/pages/homepage/homepage.dart';
-import 'package:beaja_toko/pages/order/list_order/list_order.dart';
+import 'package:beaja_toko/pages/order/get_order_by_status/get_order_by_status.dart';
 import 'package:beaja_toko/pages/product/list_product/list_product.dart';
 import 'package:beaja_toko/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -85,12 +85,12 @@ class _BottomMenuState extends State<BottomMenu> {
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 2
                 ? const Icon(
-                    Ionicons.bag_handle,
+                    Icons.shopping_cart,
                     color: AppColors.primary,
                     size: 28,
                   )
                 : const Icon(
-                    Ionicons.bag_outline,
+                    Icons.shopping_cart_checkout_outlined,
                     color: AppColors.primary,
                     size: 28,
                   ),

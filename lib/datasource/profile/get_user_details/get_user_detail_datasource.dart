@@ -16,7 +16,6 @@ class GetUserDetailsDatasource {
       return const Left('Failed');
     } else {
       final headers = {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': token,
       };

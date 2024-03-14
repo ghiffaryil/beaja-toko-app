@@ -10,7 +10,7 @@ class RegisterDatasource {
   Future<Either<String, String>> register(
       RegisterRequestModel requestModel) async {
     final headers = {
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     final body = requestModel.toJson();

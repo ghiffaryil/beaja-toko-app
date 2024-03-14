@@ -1,27 +1,25 @@
 import 'dart:convert';
 import 'package:beaja_toko/common/constants/datasource/url_api.dart';
 import 'package:beaja_toko/common/constants/datasource/variables.dart';
-import 'package:beaja_toko/models/product/get_item/get_item_request_model.dart';
-import 'package:beaja_toko/models/product/get_item/get_item_response_model.dart';
+import 'package:beaja_toko/models/order/receive_order/receive_order_request_model.dart';
+import 'package:beaja_toko/models/order/receive_order/receive_order_response_model.dart';
+import 'package:beaja_toko/repository/auth/auth_local_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
 
-class GetItemDatasource {
-  Future<Either<String, GetItemResponseModel>> getItem(
-      GetItemRequestModel requestModel) async {
-    // Get value from Repository
-    // final token = await AuthLocalRepository().getToken();
+class ReceiveOrderDatasource {
+  Future<Either<String, ReceiveOrderResponseModel>> receiveOrder(
+      ReceiveOrderRequestModel requestModel) async {
+    final token = await AuthLocalRepository().getToken();
 
     final headers = {
       'Content-Type': 'application/json',
-      // 'Authorization': token,
-      'X-Auth-Token':
-          'Basic MG5NRnJUYkxkNTNHNXJGNFd5QWlNWU02bTpHamNCMDR2MGdMNk1kczFaYUVhZzVyN0U3',
+      'Authorization': token,
     };
 
     final request = http.Request(
       'GET',
-      Uri.parse('${Variables.baseURL}/${UrlApi.getItem}'),
+      Uri.parse('${Variables.baseURL}/${UrlApi.receiveOrder}'),
     );
 
     final body = requestModel.toJson();
@@ -33,7 +31,7 @@ class GetItemDatasource {
       final responseBody = await response.stream.bytesToString();
 
       if (response.statusCode == 200) {
-        return Right(GetItemResponseModel.fromJson(responseBody));
+        return Right(ReceiveOrderResponseModel.fromJson(responseBody));
       } else {
         final Map<String, dynamic> jsonDecode = json.decode(responseBody);
         final errorMessage = jsonDecode['error'] as String;

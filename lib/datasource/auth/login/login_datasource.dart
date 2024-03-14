@@ -12,7 +12,6 @@ class LoginDatasource {
       LoginRequestModel requestModel) async {
     // Set Headers variable
     final headers = {
-      'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     final body = requestModel.toJson();
