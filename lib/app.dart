@@ -2,6 +2,7 @@ import 'package:beaja_toko/bloc/auth/login/auth_login_bloc.dart';
 import 'package:beaja_toko/bloc/auth/logout/logout_bloc.dart';
 import 'package:beaja_toko/bloc/auth/register/auth_register_bloc.dart';
 import 'package:beaja_toko/bloc/auth/verify_otp/verify_otp_bloc.dart';
+import 'package:beaja_toko/bloc/order/get_order_by_status/get_order_by_status_bloc.dart';
 import 'package:beaja_toko/bloc/product/create_item/create_item_bloc.dart';
 import 'package:beaja_toko/bloc/product/get_item/get_item_bloc.dart';
 import 'package:beaja_toko/bloc/profile/create_user_details/create_user_details_bloc.dart';
@@ -57,6 +58,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CreateItemBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetOrderByStatusBloc(),
         ),
       ],
       child: MaterialApp(

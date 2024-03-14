@@ -27,7 +27,7 @@ class _ListProductGridViewState extends State<ListProductGridView> {
         maxCrossAxisExtent: maxCrossAxisExtent,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        childAspectRatio: 0.6,
+        childAspectRatio: 0.7,
       ),
       itemCount: listData.length,
       itemBuilder: (context, index) {

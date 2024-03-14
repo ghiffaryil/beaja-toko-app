@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:beaja_toko/common/components/appbar_plain.dart';
 import 'package:beaja_toko/common/components/divider.dart';
-import 'package:beaja_toko/common/functions/merge_otp_value/merge_value_otp.dart';
+import 'package:beaja_toko/common/extension/helper/merge_value_otp.dart';
 import 'package:beaja_toko/common/constants/styles/colors.dart';
 import 'package:beaja_toko/common/constants/styles/padding.dart';
 import 'package:beaja_toko/common/constants/styles/styles.dart';

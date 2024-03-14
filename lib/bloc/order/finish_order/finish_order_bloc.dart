@@ -9,7 +9,7 @@ part 'finish_order_state.dart';
 part 'finish_order_bloc.freezed.dart';
 
 class FinishOrderBloc extends Bloc<FinishOrderEvent, FinishOrderState> {
-  FinishOrderBloc() : super(_Initial()) {
+  FinishOrderBloc() : super(const _Initial()) {
     on<_FinishOrder>((event, emit) async {
       final response =
           await FinishOrderDatasource().finishOrder(event.requestModel);

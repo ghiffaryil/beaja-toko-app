@@ -9,7 +9,7 @@ part 'receive_order_state.dart';
 part 'receive_order_bloc.freezed.dart';
 
 class ReceiveOrderBloc extends Bloc<ReceiveOrderEvent, ReceiveOrderState> {
-  ReceiveOrderBloc() : super(_Initial()) {
+  ReceiveOrderBloc() : super(const _Initial()) {
     on<_ReceiveOrder>((event, emit) async {
       final response =
           await ReceiveOrderDatasource().receiveOrder(event.requestModel);

@@ -6,7 +6,6 @@ class ButtonFilled extends StatelessWidget {
   final bool rounded;
   final Color backgroundColor;
   final Color textColor;
-  final double minWidth;
   final double width;
   final double height;
   final double fontSize;
@@ -21,7 +20,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.primary,
     this.textColor = AppColors.white,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -37,7 +35,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.secondary,
     this.textColor = AppColors.white,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -53,7 +50,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.success,
     this.textColor = AppColors.success,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -69,7 +65,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.info,
     this.textColor = AppColors.info,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -85,7 +80,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.warning,
     this.textColor = AppColors.warning,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -101,7 +95,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.light,
     this.textColor = AppColors.light,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -117,7 +110,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     this.backgroundColor = AppColors.white,
     this.textColor = AppColors.primary,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -133,7 +125,6 @@ class ButtonFilled extends StatelessWidget {
     this.rounded = true,
     required this.backgroundColor,
     required this.textColor,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -150,8 +141,7 @@ class ButtonFilled extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          minimumSize:
-              Size(MediaQuery.of(context).size.width * minWidth, height),
+          minimumSize: Size(MediaQuery.of(context).size.width * width, height),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(rounded ? 30.0 : 0.0),
           ),
@@ -191,7 +181,6 @@ class ButtonOutlined extends StatelessWidget {
   final bool rounded;
   final Color borderColor;
   final Color textColor;
-  final double minWidth;
   final double width;
   final double height;
   final double fontSize;
@@ -206,7 +195,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.primary,
     this.textColor = AppColors.primary,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -222,7 +210,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.secondary,
     this.textColor = AppColors.secondary,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -238,7 +225,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.warning,
     this.textColor = AppColors.warning,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -254,7 +240,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.info,
     this.textColor = AppColors.info,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -270,7 +255,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.success,
     this.textColor = AppColors.success,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -286,7 +270,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.light,
     this.textColor = AppColors.light,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -302,7 +285,6 @@ class ButtonOutlined extends StatelessWidget {
     this.rounded = true,
     this.borderColor = AppColors.primary,
     this.textColor = AppColors.primary,
-    this.minWidth = 30,
     this.width = double.infinity,
     this.height = 60,
     this.fontSize = 17,
@@ -318,7 +300,7 @@ class ButtonOutlined extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         surfaceTintColor: backgroundColor,
-        minimumSize: Size(MediaQuery.of(context).size.width * minWidth, height),
+        minimumSize: Size(MediaQuery.of(context).size.width * width, height),
         side: BorderSide(color: borderColor),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(rounded ? 30.0 : 0.0),

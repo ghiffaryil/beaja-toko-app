@@ -17,14 +17,15 @@ class FinishOrderDatasource {
       'Authorization': token,
     };
 
+    final uri = '${Variables.baseURL}/${UrlApi.finishOrder}';
     final request = http.Request(
-      'GET',
-      Uri.parse('${Variables.baseURL}/${UrlApi.finishOrder}'),
+      'POST',
+      Uri.parse(uri),
     );
 
     final body = requestModel.toJson();
     request.headers.addAll(headers);
-    request.body = jsonEncode(body);
+    request.body = body;
 
     try {
       final response = await http.Client().send(request);

@@ -17,18 +17,21 @@ class ReceiveOrderDatasource {
       'Authorization': token,
     };
 
+    final uri = '${Variables.baseURL}/${UrlApi.receiveOrder}';
     final request = http.Request(
-      'GET',
-      Uri.parse('${Variables.baseURL}/${UrlApi.receiveOrder}'),
+      'POST',
+      Uri.parse(uri),
     );
 
     final body = requestModel.toJson();
+
     request.headers.addAll(headers);
-    request.body = jsonEncode(body);
+    request.body = body;
 
     try {
       final response = await http.Client().send(request);
       final responseBody = await response.stream.bytesToString();
+      print(responseBody);
 
       if (response.statusCode == 200) {
         return Right(ReceiveOrderResponseModel.fromJson(responseBody));

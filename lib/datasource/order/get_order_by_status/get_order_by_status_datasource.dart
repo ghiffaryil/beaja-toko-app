@@ -23,12 +23,14 @@ class GetOrderByStatusDatasource {
     );
 
     final body = requestModel.toJson();
+
     request.headers.addAll(headers);
-    request.body = jsonEncode(body);
+    request.body = body;
 
     try {
       final response = await http.Client().send(request);
       final responseBody = await response.stream.bytesToString();
+      print(responseBody);
 
       if (response.statusCode == 200) {
         return Right(GetOrderByStatusResponseModel.fromJson(responseBody));

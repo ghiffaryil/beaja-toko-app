@@ -229,7 +229,7 @@ class _FormInputCreateUserDetailsState
                         ? AppColors.secondary
                         : AppColors.white,
                     text: 'Upload',
-                    minWidth: 30,
+                    width: 30,
                     height: 30,
                     onPressed: () {
                       _selectImageFromGallery();

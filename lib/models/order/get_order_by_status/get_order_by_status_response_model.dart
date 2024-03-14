@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class GetOrderByStatusResponseModel {
   String message;
-  List<ListOrderByStatus> data;
+  List<ListOrder> data;
 
   GetOrderByStatusResponseModel({
     required this.message,
@@ -17,8 +17,8 @@ class GetOrderByStatusResponseModel {
   factory GetOrderByStatusResponseModel.fromMap(Map<String, dynamic> json) =>
       GetOrderByStatusResponseModel(
         message: json["message"],
-        data: List<ListOrderByStatus>.from(
-            json["data"].map((x) => ListOrderByStatus.fromMap(x))),
+        data:
+            List<ListOrder>.from(json["data"].map((x) => ListOrder.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -27,7 +27,7 @@ class GetOrderByStatusResponseModel {
       };
 }
 
-class ListOrderByStatus {
+class ListOrder {
   int id;
   String keyOrder;
   int userId;
@@ -37,12 +37,12 @@ class ListOrderByStatus {
   String pembeliLong;
   String alamatPembeli;
   bool delivery;
-  bool orderStatus;
+  int orderStatus;
   DateTime createdAt;
   DateTime updatedAt;
   List<OrderDetail> orderDetails;
 
-  ListOrderByStatus({
+  ListOrder({
     required this.id,
     required this.keyOrder,
     required this.userId,
@@ -58,13 +58,11 @@ class ListOrderByStatus {
     required this.orderDetails,
   });
 
-  factory ListOrderByStatus.fromJson(String str) =>
-      ListOrderByStatus.fromMap(json.decode(str));
+  factory ListOrder.fromJson(String str) => ListOrder.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory ListOrderByStatus.fromMap(Map<String, dynamic> json) =>
-      ListOrderByStatus(
+  factory ListOrder.fromMap(Map<String, dynamic> json) => ListOrder(
         id: json["ID"],
         keyOrder: json["key_order"],
         userId: json["user_id"],
@@ -105,6 +103,7 @@ class OrderDetail {
   String sku;
   int qty;
   int harga;
+  int itemId;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -115,6 +114,7 @@ class OrderDetail {
     required this.sku,
     required this.qty,
     required this.harga,
+    required this.itemId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -131,6 +131,7 @@ class OrderDetail {
         sku: json["sku"],
         qty: json["QTY"],
         harga: json["harga"],
+        itemId: json["item_id"],
         createdAt: DateTime.parse(json["CreatedAt"]),
         updatedAt: DateTime.parse(json["UpdatedAt"]),
       );
@@ -142,6 +143,7 @@ class OrderDetail {
         "sku": sku,
         "QTY": qty,
         "harga": harga,
+        "item_id": itemId,
         "CreatedAt": createdAt.toIso8601String(),
         "UpdatedAt": updatedAt.toIso8601String(),
       };

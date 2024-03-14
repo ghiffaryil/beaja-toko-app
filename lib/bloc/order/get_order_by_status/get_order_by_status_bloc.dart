@@ -10,7 +10,7 @@ part 'get_order_by_status_bloc.freezed.dart';
 
 class GetOrderByStatusBloc
     extends Bloc<GetOrderByStatusEvent, GetOrderByStatusState> {
-  GetOrderByStatusBloc() : super(_Initial()) {
+  GetOrderByStatusBloc() : super(const _Initial()) {
     on<_GetOrder>((event, emit) async {
       final response =
           await GetOrderByStatusDatasource().getOrder(event.requestModel);

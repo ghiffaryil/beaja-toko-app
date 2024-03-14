@@ -76,8 +76,9 @@ class _ListProductCardState extends State<ListProductCard> {
                   '$jenisItem $volumeItem ',
                   style: TextStyles.small(color: AppColors.muted),
                 ),
+                CustomDividers.smallDivider(),
                 Text(
-                  '${formatCurrency(product.harga.toDouble())},-',
+                  formatCurrency(product.harga.toDouble()),
                   style: TextStyles.medium(
                     color: AppColors.primary,
                   ),
